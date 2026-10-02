@@ -1,10 +1,30 @@
 [
   {
+    "version": "1.0.1",
+    "date": "2026-10-02",
+    "file": "/downloads/swappy-1.0.1.apk",
+    "sizeBytes": 53469973,
+    "sha256": "bc8a5abaffe722e3a9108a634f743dbe15510170776e39d1731bd4668a531d27",
+    "minAndroid": "7.0",
+    "notes": {
+      "th": [
+        "แก้ไขแอปเด้งออกทันทีหลังเปิด (ปรับระบบนำทางตอนเริ่มต้น)",
+        "ใช้ URL เซิร์ฟเวอร์ production และเซ็นแอปด้วยคีย์ของ Swappy",
+        "ลบสิทธิ์ที่ไม่จำเป็น (ไมโครโฟน)"
+      ],
+      "en": [
+        "Fixed the app closing right after launch (startup navigation reworked)",
+        "Uses the production server URL and is signed with the Swappy release key",
+        "Removed unneeded permissions (microphone)"
+      ]
+    }
+  },
+  {
     "version": "1.0.0",
     "date": "2026-10-02",
-    "file": "/downloads/swappy-1.0.0.apk",
-    "sizeBytes": 53471237,
-    "sha256": "80292145ed7f2eec7e1a0e78a1eb488fa8d5e50cdc8dd09f4b35a37c3ce7cf6e",
+    "file": null,
+    "sizeBytes": null,
+    "sha256": null,
     "minAndroid": "7.0",
     "notes": {
       "th": [
@@ -23,6 +43,7 @@
         "Home-screen widget showing today's shift and the next ones",
         "Thai and English UI"
       ]
-    }
+    },
+    "withdrawn": true
   }
 ]
