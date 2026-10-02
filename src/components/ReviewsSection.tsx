@@ -26,6 +26,14 @@ function Stars({ value, size = "h-4 w-4", onPick }: { value: number; size?: stri
   );
 }
 
+/** Design placeholders shown ONLY while there are no real reviews. They are clearly labelled and never stored. */
+const SAMPLES = [
+  { rating: 5, comment: "ดูตารางเวรทั้งเดือนได้ในหน้าเดียว ไม่ต้องไล่ถามในกลุ่มแชทอีกแล้ว" },
+  { rating: 5, comment: "แลกเวรกับเพื่อนง่ายมาก กดขอแล้วเพื่อนตอบรับ ตารางอัปเดตเอง" },
+  { rating: 4, comment: "วิดเจ็ตบนหน้าจอหลักสะดวก เห็นเวรวันนี้ทันทีโดยไม่ต้องเปิดแอป" },
+  { rating: 5, comment: "เพิ่มเพื่อนด้วย QR Code เร็วดี และมีแจ้งเตือนทุกครั้งที่มีคำขอ" },
+];
+
 /** Landing-page section: real reviews written by signed-in users (stored in the database). */
 export function ReviewsSection() {
   const { t, ts, lang } = useT();
@@ -100,10 +108,25 @@ export function ReviewsSection() {
               </figure>
             ))}
           </div>
-        ) : (
-          <div className="rounded-3xl border border-dashed border-slate-200 bg-white/60 p-10 text-center text-slate-400">
-            {data ? t("ยังไม่มีรีวิว — เป็นคนแรกที่รีวิว Swappy") : "…"}
+        ) : data ? (
+          <div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {SAMPLES.map((r) => (
+                <figure key={r.comment} className="relative flex flex-col rounded-3xl border border-dashed border-slate-300 bg-white/70 p-5">
+                  <span className="absolute right-4 top-4 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-400">{t("ตัวอย่าง")}</span>
+                  <Stars value={r.rating} />
+                  <blockquote className="mt-3 flex-1 text-sm leading-relaxed text-slate-500">“{t(r.comment)}”</blockquote>
+                  <figcaption className="mt-4 flex items-center gap-3">
+                    <span className="grid h-9 w-9 place-items-center rounded-full bg-slate-200 text-sm font-bold text-slate-400">?</span>
+                    <span className="text-sm font-semibold text-slate-400">{t("ผู้ใช้ตัวอย่าง")}</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <p className="mt-4 text-center text-xs text-slate-400">{t("การ์ดข้างต้นเป็นตัวอย่างการแสดงผล ไม่ใช่รีวิวจากผู้ใช้จริง — รีวิวจริงจะมาแทนที่เมื่อมีผู้ใช้เขียนรีวิว")}</p>
           </div>
+        ) : (
+          <div className="rounded-3xl border border-dashed border-slate-200 bg-white/60 p-10 text-center text-slate-400">…</div>
         )}
 
         <div className="mx-auto mt-10 max-w-xl rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100">

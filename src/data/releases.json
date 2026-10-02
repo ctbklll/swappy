@@ -1,10 +1,32 @@
 [
   {
+    "version": "1.1.4",
+    "date": "2026-10-02",
+    "file": "/downloads/swappy-1.1.4.apk",
+    "sizeBytes": 53489937,
+    "sha256": "6b128a9b726abe396680c4f5e413ce39aec039fd2e64331c6c8c1b0b288252ae",
+    "minAndroid": "7.0",
+    "notes": {
+      "th": [
+        "มุมมอง 2 สัปดาห์ และ สัปดาห์ แสดงเป็นตารางปฏิทิน 7 คอลัมน์ (แทนรายการ) พร้อมเวลาเริ่มกะในแต่ละช่อง",
+        "วิดเจ็ตหน้าจอหลัก: เลือกมุมมอง 4 แบบ และรูปแบบแท็ก 4 แบบ พร้อมตัวอย่างสด",
+        "แก้วิดเจ็ตโดนตัดขอบและมุมมนไม่ครบ 4 มุม",
+        "วิดเจ็ตที่ยังไม่ตั้งค่า แตะเพื่อเปิดหน้าตั้งค่าได้"
+      ],
+      "en": [
+        "2-week and week views are now 7-column calendar grids (instead of a list) with the start time in each cell",
+        "Home-screen widget: 4 views and 4 tag styles with a live preview",
+        "Fixed the widget being clipped and not rounded on all 4 corners",
+        "An unconfigured widget can be tapped to open its settings"
+      ]
+    }
+  },
+  {
     "version": "1.1.3",
     "date": "2026-10-02",
-    "file": "/downloads/swappy-1.1.3.apk",
-    "sizeBytes": 53489901,
-    "sha256": "7b32b52b63df5a2e21f67f53af41bf4e5eb66970fc22cb105cd7c2ecd11f350f",
+    "file": null,
+    "sizeBytes": null,
+    "sha256": null,
     "minAndroid": "7.0",
     "notes": {
       "th": [
