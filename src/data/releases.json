@@ -1,10 +1,32 @@
 [
   {
+    "version": "1.2.3",
+    "date": "2026-10-02",
+    "file": "/downloads/swappy-1.2.3.apk",
+    "sizeBytes": 55119868,
+    "sha256": "597a5363ef0ec843c78c1c2310c0ee41810b2fb2474b7f81efa2456484b0ce09",
+    "minAndroid": "7.0",
+    "notes": {
+      "th": [
+        "กระดานแลกเวร: ประกาศเวรที่อยากแลกโดยไม่ระบุคน เพื่อนที่สนใจเสนอเวรของตัวเองมา แล้วผู้ประกาศเลือกคนที่ต้องการแลกด้วย",
+        "หน้าเพื่อนร่วมงานมีส่วนกระดานแลกเวร (ครึ่งหน้าจอ) พร้อมปุ่มประกาศและปุ่มเปิดเต็มหน้า",
+        "แท็บใหม่ในหน้าแลกเปลี่ยนเวร: คำขอถึงเพื่อน / กระดานแลกเวร",
+        "แจ้งเตือนเมื่อมีประกาศใหม่ มีคนสนใจ ได้รับเลือก หรือประกาศถูกปิด"
+      ],
+      "en": [
+        "Swap board: announce a shift you'd like to swap without naming anyone; interested friends offer one of theirs and you choose who to swap with",
+        "The Friends screen now has a half-screen swap board with an announce button and an open-full-page button",
+        "New tabs on the swap screen: Requests to friends / Swap board",
+        "Notifications for new announcements, interest, being chosen, and closed announcements"
+      ]
+    }
+  },
+  {
     "version": "1.1.4",
     "date": "2026-10-02",
-    "file": "/downloads/swappy-1.1.4.apk",
-    "sizeBytes": 53489937,
-    "sha256": "6b128a9b726abe396680c4f5e413ce39aec039fd2e64331c6c8c1b0b288252ae",
+    "file": null,
+    "sizeBytes": null,
+    "sha256": null,
     "minAndroid": "7.0",
     "notes": {
       "th": [
