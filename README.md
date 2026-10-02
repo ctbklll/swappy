@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Swappy
 
-## Getting Started
+ระบบจัดการตารางเวรและแลกเวรสำหรับพนักงานปฏิบัติการ — Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Prisma 7 + Supabase (PostgreSQL)
 
-First, run the development server:
+## ตั้งค่า
+
+1. คัดลอก `.env.example` เป็น `.env.local` แล้วใส่ค่าจาก Supabase (Project Settings → Database → Connection string)
+   - `DATABASE_URL` — transaction pooler (พอร์ต 6543, ต่อท้าย `?pgbouncer=true`) ใช้ตอนรันแอป
+   - `DIRECT_URL` — session pooler (พอร์ต 5432) ใช้ตอน migrate
+   - รหัสผ่านที่มีอักขระพิเศษต้อง URL-encode (เช่น `!` → `%21`)
+   - `AUTH_SECRET` — สตริงสุ่มยาว ๆ
+2. สร้างตารางและข้อมูลทดลอง
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run db:push     # สร้างตารางบน Supabase (หรือ npm run db:migrate เพื่อเก็บ migration)
+npm run db:seed     # (ไม่บังคับ) ผู้ใช้ทดลอง: admin@swappy.app, somchai@swappy.app ... รหัส password123
+npm run dev         # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ผู้ใช้คนแรกที่ลงทะเบียนในฐานข้อมูลว่างจะเป็น Admin อัตโนมัติ
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## โครงสร้าง
+- `prisma/schema.prisma` — โมเดลข้อมูล, `prisma/seed.ts` — ข้อมูลทดลอง
+- `src/app/(auth)` — login / register
+- `src/app/(app)` — dashboard, friends, swaps, notifications, settings, admin
+- `src/app/api/**` — REST API routes (ใช้ Prisma)
+- `src/lib/db.ts` — Prisma client (driver adapter `pg`)
+- `src/proxy.ts` — redirect ผู้ที่ยังไม่ล็อกอิน

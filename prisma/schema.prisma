@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  user
+  admin
+}
+
+enum TagStyle {
+  bar
+  dot
+  block
+  letter
+}
+
+enum RequestStatus {
+  pending
+  accepted
+  declined
+}
+
+enum SwapStatus {
+  pending
+  accepted
+  declined
+  cancelled
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  avatar       String?
+  role         Role     @default(user)
+  code         String   @unique
+  tagStyle     TagStyle @default(bar)
+  createdAt    DateTime @default(now())
+
+  templates     ShiftTemplate[]
+  shifts        Shift[]
+  sentRequests  Friendship[]    @relation("from")
+  recvRequests  Friendship[]    @relation("to")
+  sentSwaps     Swap[]          @relation("requester")
+  recvSwaps     Swap[]          @relation("target")
+  notifications Notification[]
+}
+
+model Friendship {
+  id        String        @id @default(cuid())
+  fromId    String
+  toId      String
+  status    RequestStatus @default(pending)
+  createdAt DateTime      @default(now())
+
+  from User @relation("from", fields: [fromId], references: [id], onDelete: Cascade)
+  to   User @relation("to", fields: [toId], references: [id], onDelete: Cascade)
+
+  @@unique([fromId, toId])
+  @@index([toId])
+}
+
+model ShiftTemplate {
+  id     String @id @default(cuid())
+  userId String
+  name   String
+  start  String
+  end    String
+  color  String
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  shifts Shift[]
+
+  @@index([userId])
+}
+
+model Shift {
+  id         String @id @default(cuid())
+  userId     String
+  date       String // YYYY-MM-DD
+  templateId String
+
+  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  template ShiftTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  swapsOut Swap[]        @relation("requesterShift")
+  swapsIn  Swap[]        @relation("targetShift")
+
+  @@unique([userId, date])
+  @@index([date])
+}
+
+model Swap {
+  id               String     @id @default(cuid())
+  requesterId      String
+  targetId         String
+  requesterShiftId String
+  targetShiftId    String?
+  note             String     @default("")
+  status           SwapStatus @default(pending)
+  createdAt        DateTime   @default(now())
+
+  requester      User   @relation("requester", fields: [requesterId], references: [id], onDelete: Cascade)
+  target         User   @relation("target", fields: [targetId], references: [id], onDelete: Cascade)
+  requesterShift Shift  @relation("requesterShift", fields: [requesterShiftId], references: [id], onDelete: Cascade)
+  targetShift    Shift? @relation("targetShift", fields: [targetShiftId], references: [id], onDelete: Cascade)
+
+  @@index([requesterId])
+  @@index([targetId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  title     String
+  body      String
+  link      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
