@@ -25,6 +25,7 @@ const paths = {
   cal: "M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M8 3v4M16 3v4",
   list: "M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01",
   copy: "M9 9h10v11H9zM5 15V4h10",
+  download: "M12 4v11m0 0-4-4m4 4 4-4M5 19h14",
   camera: "M4 8h3l2-3h6l2 3h3v11H4zM12 17a3.500 3.500 0 1 0 0-7 3.500 3.500 0 0 0 0 7Z",
 } as const;
 export type IconName = keyof typeof paths;

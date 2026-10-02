@@ -7,7 +7,7 @@ export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const isAuthPage = pathname === "/login" || pathname === "/register";
 
-  if (pathname === "/welcome") return NextResponse.next();
+  if (pathname === "/welcome" || pathname === "/download") return NextResponse.next();
   // Visitors see the landing page at "/" (URL stays "/"); signed-in users get the dashboard.
   if (pathname === "/" && !has) return NextResponse.rewrite(new URL("/welcome", req.url));
   if (!has && !isAuthPage) return NextResponse.redirect(new URL("/login", req.url));

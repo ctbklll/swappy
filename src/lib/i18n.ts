@@ -245,6 +245,16 @@ const EN: Record<string, string> = {
   "สร้างบัญชีฟรี แล้วเริ่มลงเวรและชวนเพื่อนร่วมงานได้ในไม่กี่นาที": "Create a free account and start logging shifts and inviting colleagues in minutes",
   "เริ่มต้นใช้งานฟรี": "Get started for free",
   "ระบบจัดการตารางเวรสำหรับพนักงานปฏิบัติการ": "Shift management for operations staff",
+  // ---- widget showcase ----
+  "วิดเจ็ต": "Widget",
+  "วิดเจ็ตบนหน้าจอหลัก": "A widget for your home screen",
+  "ดูเวรวันนี้และเวรถัดไปได้ทันทีโดยไม่ต้องเปิดแอป เลือกมุมมองและรูปแบบแท็กได้ตามใจ": "See today's shift and what's next without opening the app. Pick the view and tag style you like.",
+  "มุมมอง": "View",
+  "เลือกได้ 4 มุมมอง: รายการ เดือน 2 สัปดาห์ สัปดาห์": "4 views: list, month, 2 weeks, week",
+  "4 รูปแบบแท็ก: Bar, Dot, Block, Letter": "4 tag styles: Bar, Dot, Block, Letter",
+  "เพิ่มลงหน้าจอหลักได้จากในแอป มีตัวอย่างให้ดูก่อนบันทึก": "Add it from inside the app, with a live preview before you save",
+  "อัปเดตอัตโนมัติเมื่อมีการแก้ตารางเวร": "Updates automatically when your shifts change",
+  "ใช้ได้กับ Android": "Android only for now",
   // ---- download section ----
   "ดาวน์โหลด": "Download",
   "ดาวน์โหลดแอป Android": "Get the Android app",

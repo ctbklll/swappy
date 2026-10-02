@@ -1,10 +1,82 @@
 [
   {
+    "version": "1.1.3",
+    "date": "2026-10-02",
+    "file": "/downloads/swappy-1.1.3.apk",
+    "sizeBytes": 53489901,
+    "sha256": "7b32b52b63df5a2e21f67f53af41bf4e5eb66970fc22cb105cd7c2ecd11f350f",
+    "minAndroid": "7.0",
+    "notes": {
+      "th": [
+        "วิดเจ็ตหน้าจอหลัก: เลือกมุมมองได้ 4 แบบ (รายการ / เดือน / 2 สัปดาห์ / สัปดาห์) และเลือกรูปแบบแท็กได้ (Bar / Dot / Block / Letter)",
+        "หน้าตั้งค่าวิดเจ็ตมีตัวอย่างสด และเพิ่มวิดเจ็ตได้จากหน้าตั้งค่าในแอป",
+        "ถ้าวิดเจ็ตยังไม่ได้ตั้งค่า จะมีการ์ดให้แตะเพื่อเปิดหน้าตั้งค่า",
+        "แก้วิดเจ็ตโดนตัดขอบและมุมมนไม่ครบ 4 มุม",
+        "แก้แอปเด้งออกตอนเปิด และปรับ layout หน้าจอให้เหมาะกับมือถือ"
+      ],
+      "en": [
+        "Home-screen widget: 4 views (list / month / 2 weeks / week) and 4 tag styles (Bar / Dot / Block / Letter)",
+        "Widget settings screen with a live preview; add the widget from Settings inside the app",
+        "An unconfigured widget shows a card you can tap to open its settings",
+        "Fixed the widget being clipped and not rounded on all 4 corners",
+        "Fixed the app closing on launch and improved the mobile layout"
+      ]
+    }
+  },
+  {
+    "version": "1.0.4",
+    "date": "2026-10-02",
+    "file": null,
+    "sizeBytes": null,
+    "sha256": null,
+    "minAndroid": "7.0",
+    "notes": {
+      "th": [
+        "ปรับ layout ให้เหมาะกับมือถือ: ปฏิทินเดือนแสดงครบ 7 คอลัมน์ แท็กกะอ่านง่ายขึ้น",
+        "การ์ดสถิติแสดง 2 คอลัมน์ ไม่ยาวเป็นแถวเดียว",
+        "หัวข้อหน้าไม่ตกบรรทัด และแถบสลับมุมมองอ่านได้ครบ",
+        "ลดขนาดตัวอักษรโดยรวมให้พอดีหน้าจอ",
+        "ปรับหน้าเข้าสู่ระบบ/ลงทะเบียนให้กะทัดรัด และคีย์บอร์ดไม่บังช่องกรอก"
+      ],
+      "en": [
+        "Mobile-friendly layout: the month calendar now shows all 7 columns with readable shift tags",
+        "Stat cards in two columns instead of one long list",
+        "Page titles no longer wrap and the view switcher fits",
+        "Smaller overall text to fit the screen",
+        "Compact sign-in / sign-up and the keyboard no longer covers inputs"
+      ]
+    }
+  },
+  {
+    "version": "1.0.3",
+    "date": "2026-10-02",
+    "file": null,
+    "sizeBytes": null,
+    "sha256": null,
+    "minAndroid": "7.0",
+    "notes": {
+      "th": [
+        "แก้แอปเด้งออกตอนเปิด (ปรับตัวนำทางแท็บที่ทำให้แอปล่ม)",
+        "หน้าเข้าสู่ระบบ/ลงทะเบียนกะทัดรัดขึ้น โลโก้และปุ่มภาษาอยู่ด้านบน ไม่ต้องเลื่อนหน้าจอ",
+        "คีย์บอร์ดไม่บังช่องกรอกข้อมูลอีกต่อไป",
+        "แก้เนื้อหาชนแถบสถานะด้านบนของหน้าจอ",
+        "เซ็นแอปด้วยคีย์ของ Swappy และตัดสิทธิ์ที่ไม่จำเป็น (ไมโครโฟน)"
+      ],
+      "en": [
+        "Fixed the app closing on launch (tab navigator crash)",
+        "Compact sign-in / sign-up screens with the logo and language switch on top — no scrolling needed",
+        "The keyboard no longer covers input fields",
+        "Fixed content overlapping the status bar",
+        "Signed with the Swappy release key and removed unneeded permissions (microphone)"
+      ]
+    }
+  },
+  {
     "version": "1.0.1",
     "date": "2026-10-02",
-    "file": "/downloads/swappy-1.0.1.apk",
-    "sizeBytes": 53469973,
-    "sha256": "bc8a5abaffe722e3a9108a634f743dbe15510170776e39d1731bd4668a531d27",
+    "file": null,
+    "sizeBytes": null,
+    "sha256": null,
     "minAndroid": "7.0",
     "notes": {
       "th": [
@@ -17,7 +89,8 @@
         "Uses the production server URL and is signed with the Swappy release key",
         "Removed unneeded permissions (microphone)"
       ]
-    }
+    },
+    "withdrawn": true
   },
   {
     "version": "1.0.0",
