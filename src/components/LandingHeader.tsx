@@ -20,7 +20,7 @@ export function LandingHeader({ active }: { active?: "download" }) {
           <a href={`${base}#features`} className="hover:text-blue-600">{t("ฟีเจอร์")}</a>
           <a href={`${base}#how`} className="hover:text-blue-600">{t("วิธีใช้งาน")}</a>
           <a href={`${base}#widget`} className="hover:text-blue-600">{t("วิดเจ็ต")}</a>
-            <a href={`${base}#styles`} className="hover:text-blue-600">{t("รูปแบบแท็ก")}</a>
+            <a href={`${base}#reviews`} className="hover:text-blue-600">{t("รีวิว")}</a>
           <Link href="/download" className={`font-bold ${active === "download" ? "text-blue-700" : "text-blue-600 hover:text-blue-700"}`}>{t("ดาวน์โหลด")}</Link>
         </nav>
         <div className="flex items-center gap-2">

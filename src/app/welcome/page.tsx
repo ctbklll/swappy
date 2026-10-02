@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LandingHeader } from "@/components/LandingHeader";
+import { ReviewsSection } from "@/components/ReviewsSection";
 import { WidgetShowcase } from "@/components/WidgetShowcase";
 import { useT } from "@/components/LangProvider";
 import { Icon, type IconName } from "@/components/ui";
@@ -144,31 +145,9 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Tag styles */}
-      <section id="styles" className="scroll-mt-16 bg-slate-50 py-20">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <div className="mx-auto mb-10 max-w-2xl text-center">
-            <p className="text-sm font-bold text-blue-600">{t("ปรับแต่งได้")}</p>
-            <h2 className="mt-2 text-3xl font-extrabold tracking-tight">{t("เลือกรูปแบบแท็กกะที่ชอบ")}</h2>
-            <p className="mt-3 text-slate-500">{t("เปลี่ยนวิธีแสดงกะในปฏิทินได้ตลอดที่หน้าตั้งค่า")}</p>
-          </div>
-          <div className="mx-auto grid max-w-3xl grid-cols-2 gap-4 sm:grid-cols-4">
-            {[
-              { n: "Bar", el: <span className="flex items-stretch gap-1 rounded-md bg-slate-50 pr-2 text-xs font-medium"><span className="w-1 rounded-full bg-blue-600" /><span className="py-0.5">{t("เช้า")}</span></span> },
-              { n: "Dot", el: <span className="flex items-center gap-1.5 text-xs font-medium"><span className="h-2 w-2 rounded-full bg-amber-500" />{t("บ่าย")}</span> },
-              { n: "Block", el: <span className="rounded-lg bg-violet-600 px-3 py-1 text-xs font-semibold text-white">{t("ดึก")}</span> },
-              { n: "Letter", el: <span className="grid h-7 w-7 place-items-center rounded-full bg-blue-600 text-xs font-bold text-white">{t("เช้า").charAt(0)}</span> },
-            ].map((s) => (
-              <div key={s.n} className="flex flex-col items-center gap-4 rounded-3xl bg-white p-6 ring-1 ring-slate-100">
-                <div className="flex h-8 items-center">{s.el}</div>
-                <span className="text-sm font-bold">{s.n}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <WidgetShowcase />
+
+      <ReviewsSection />
 
       {/* CTA */}
       <section className="px-4 py-20 md:px-6">

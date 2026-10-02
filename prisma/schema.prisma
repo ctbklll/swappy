@@ -50,6 +50,7 @@ model User {
   sentSwaps     Swap[]          @relation("requester")
   recvSwaps     Swap[]          @relation("target")
   notifications Notification[]
+  review        Review?
 }
 
 model Friendship {
@@ -127,4 +128,17 @@ model Notification {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String   @unique // one review per user (editing replaces it)
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([createdAt])
 }
