@@ -8,7 +8,7 @@ import { useT } from "@/components/LangProvider";
 import { AssignShiftModal } from "@/components/AssignShiftModal";
 import { TemplatesModal } from "@/components/TemplatesModal";
 import { refreshEvent } from "@/components/Shell";
-import { Avatar, Empty, Icon, ShiftTag, card } from "@/components/ui";
+import { Avatar, Dropdown, Empty, Icon, ShiftTag, card } from "@/components/ui";
 
 type View = "month" | "two-weeks" | "week" | "list";
 const VIEWS: { id: View; label: string }[] = [
@@ -124,11 +124,8 @@ export default function Dashboard() {
         </div>
         <div className="flex items-center gap-2">
           {friends.data && friends.data.friends.length > 0 && (
-            <select value={viewing} onChange={(e) => setViewing(e.target.value)}
-              className="rounded-2xl bg-white px-3 py-2.5 text-sm font-semibold ring-1 ring-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600" aria-label={t("เลือกตารางที่ต้องการดู")}>
-              <option value={user.id}>{t("ตารางของฉัน")}</option>
-              {friends.data.friends.map((f) => <option key={f.user.id} value={f.user.id}>{f.user.name}</option>)}
-            </select>
+            <Dropdown size="sm" className="min-w-40" ariaLabel={t("เลือกตารางที่ต้องการดู")} value={viewing} onChange={setViewing}
+              options={[{ value: user.id, label: t("ตารางของฉัน") }, ...friends.data.friends.map((f) => ({ value: f.user.id, label: f.user.name }))]} />
           )}
           {own && (
             <button onClick={() => setTplOpen(true)} className="rounded-2xl bg-white px-4 py-2.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-200 hover:bg-blue-50">

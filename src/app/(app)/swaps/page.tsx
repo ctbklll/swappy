@@ -6,7 +6,8 @@ import { addDays, fmt, shortDate, today } from "@/lib/dates";
 import type { PublicUser, Shift, ShiftTemplate, Swap } from "@/lib/types";
 import { useApp } from "@/components/AppProvider";
 import { useT, } from "@/components/LangProvider";
-import { Avatar, Empty, Modal, btn, card, input } from "@/components/ui";
+import { SwapBoard } from "@/components/SwapBoard";
+import { Avatar, Dropdown, Empty, Modal, btn, card, input } from "@/components/ui";
 
 type WithTpl = (Shift & { template: ShiftTemplate | null }) | null;
 type SwapView = Swap & { requester: PublicUser | null; target: PublicUser | null; requesterShift: WithTpl; targetShift: WithTpl };
@@ -62,22 +63,16 @@ function NewSwap({ open, onClose, onDone, presetTo }: { open: boolean; onClose: 
     <Modal open={open} onClose={onClose} title={t("ขอแลกเวร")}>
       <div className="space-y-3">
         <label className="block space-y-1 text-xs font-semibold text-slate-500">{t("แลกกับ")}
-          <select className={input} value={to} onChange={(e) => { setTo(e.target.value); setTheirs(""); }}>
-            <option value="">{t("เลือกเพื่อน…")}</option>
-            {friends.data?.friends.map((f) => <option key={f.user.id} value={f.user.id}>{f.user.name}</option>)}
-          </select>
+          <Dropdown value={to} onChange={(v) => { setTo(v); setTheirs(""); }} placeholder={t("เลือกเพื่อน…")}
+            options={(friends.data?.friends ?? []).map((f) => ({ value: f.user.id, label: f.user.name }))} />
         </label>
         <label className="block space-y-1 text-xs font-semibold text-slate-500">{t("เวรของฉัน")} ({user.name})
-          <select className={input} value={mine} onChange={(e) => setMine(e.target.value)}>
-            <option value="">{t("เลือกเวรของฉัน…")}</option>
-            {myShifts.data?.shifts.map((s) => <option key={s.id} value={s.id}>{label(s, myShifts.data?.templates)}</option>)}
-          </select>
+          <Dropdown value={mine} onChange={setMine} placeholder={t("เลือกเวรของฉัน…")}
+            options={(myShifts.data?.shifts ?? []).map((s) => ({ value: s.id, label: label(s, myShifts.data?.templates) }))} />
         </label>
         <label className="block space-y-1 text-xs font-semibold text-slate-500">{t("เวรของเพื่อน")}
-          <select className={input} value={theirs} disabled={!to} onChange={(e) => setTheirs(e.target.value)}>
-            <option value="">{t("ไม่แลก — ยกเวรให้เพื่อน")}</option>
-            {theirShifts.data?.shifts.map((s) => <option key={s.id} value={s.id}>{label(s, theirShifts.data?.templates)}</option>)}
-          </select>
+          <Dropdown value={theirs} onChange={setTheirs} disabled={!to} placeholder={t("ไม่แลก — ยกเวรให้เพื่อน")}
+            options={[{ value: "", label: t("ไม่แลก — ยกเวรให้เพื่อน") }, ...(theirShifts.data?.shifts ?? []).map((s) => ({ value: s.id, label: label(s, theirShifts.data?.templates) }))]} />
         </label>
         <textarea className={input} rows={2} placeholder={t("ข้อความถึงเพื่อน (ไม่บังคับ)")} value={note} maxLength={200} onChange={(e) => setNote(e.target.value)} />
         <button disabled={busy || !to || !mine} onClick={submit} className={`${btn.primary} w-full`}>{t("ส่งคำขอ")}</button>
@@ -92,6 +87,8 @@ function SwapsInner() {
   const params = useSearchParams();
   const { data, reload } = useFetch<{ swaps: SwapView[] }>("/api/swaps", { poll: 8000 });
   const [open, setOpen] = useState(params.get("new") === "1");
+  const [tab, setTab] = useState<"direct" | "board">(params.get("tab") === "board" ? "board" : "direct");
+  const [postOpen, setPostOpen] = useState(false);
 
   const act = async (id: string, action: string, msg: string) => {
     try { await api(`/api/swaps/${id}`, "PATCH", { action }); toast(msg); await reload(); } catch (e) { toast(ts((e as Error).message), "error"); await reload(); }
@@ -101,11 +98,20 @@ function SwapsInner() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-extrabold tracking-tight">{t("แลกเปลี่ยนเวร")}</h1>
-        <button className={btn.primary} onClick={() => setOpen(true)}>{t("+ ขอแลกเวร")}</button>
+        {tab === "direct"
+          ? <button className={btn.primary} onClick={() => setOpen(true)}>{t("+ ขอแลกเวร")}</button>
+          : <button className={btn.primary} onClick={() => setPostOpen(true)}>{t("+ ประกาศแลกเวร")}</button>}
       </div>
-      {data && !data.swaps.length && <Empty icon="swap" text={t("ยังไม่มีคำขอแลกเวร")} />}
+      <div className="grid grid-cols-2 rounded-2xl bg-slate-200/70 p-1 text-sm font-semibold" role="tablist">
+        {([["direct", "คำขอถึงเพื่อน"], ["board", "กระดานแลกเวร"]] as const).map(([k, label]) => (
+          <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)}
+            className={`rounded-xl py-2 transition ${tab === k ? "bg-white text-blue-700 shadow-sm" : "text-slate-500"}`}>{t(label)}</button>
+        ))}
+      </div>
+      {tab === "board" && <SwapBoard createOpen={postOpen} onCreateClose={() => setPostOpen(false)} />}
+      {tab === "direct" && data && !data.swaps.length && <Empty icon="swap" text={t("ยังไม่มีคำขอแลกเวร")} />}
       <div className="space-y-3">
-        {data?.swaps.map((s) => {
+        {(tab === "direct" ? data?.swaps : [])?.map((s) => {
           const mineReq = s.requesterId === user.id;
           const other = mineReq ? s.target : s.requester;
           return (

@@ -51,6 +51,8 @@ model User {
   recvSwaps     Swap[]          @relation("target")
   notifications Notification[]
   review        Review?
+  posts         SwapPost[]
+  interests     SwapInterest[]
 }
 
 model Friendship {
@@ -91,6 +93,8 @@ model Shift {
   template ShiftTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
   swapsOut Swap[]        @relation("requesterShift")
   swapsIn  Swap[]        @relation("targetShift")
+  posts    SwapPost[]
+  offered  SwapInterest[]
 
   @@unique([userId, date])
   @@index([date])
@@ -141,4 +145,51 @@ model Review {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([createdAt])
+}
+
+enum PostStatus {
+  open
+  matched
+  cancelled
+}
+
+enum InterestStatus {
+  pending
+  chosen
+  rejected
+}
+
+/// An undirected swap offer ("board post"): visible to the poster's friends; interested friends offer one of their shifts.
+model SwapPost {
+  id            String     @id @default(cuid())
+  posterId      String
+  shiftId       String
+  note          String     @default("")
+  allowGiveaway Boolean    @default(false) // accept takers who don't offer a shift back
+  status        PostStatus @default(open)
+  createdAt     DateTime   @default(now())
+
+  poster    User           @relation(fields: [posterId], references: [id], onDelete: Cascade)
+  shift     Shift          @relation(fields: [shiftId], references: [id], onDelete: Cascade)
+  interests SwapInterest[]
+
+  @@index([status, createdAt])
+  @@index([posterId])
+}
+
+model SwapInterest {
+  id        String         @id @default(cuid())
+  postId    String
+  userId    String
+  shiftId   String? // the shift offered in return; null = just take it
+  note      String         @default("")
+  status    InterestStatus @default(pending)
+  createdAt DateTime       @default(now())
+
+  post  SwapPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  shift Shift?   @relation(fields: [shiftId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, userId])
+  @@index([userId])
 }

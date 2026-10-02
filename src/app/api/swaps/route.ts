@@ -37,6 +37,8 @@ export const POST = authed(async (req, user) => {
     return fail("ไม่พบเวรของเพื่อน");
   if (await prisma.swap.findFirst({ where: { status: "pending", requesterShiftId: mine.id } }))
     return fail("เวรนี้มีคำขอแลกที่รออยู่แล้ว");
+  if (await prisma.swapPost.findFirst({ where: { status: "open", shiftId: mine.id } }))
+    return fail("เวรนี้ถูกประกาศอยู่ในกระดานแลกเวรแล้ว");
 
   await prisma.$transaction(async (tx) => {
     await tx.swap.create({

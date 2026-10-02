@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useT } from "./LangProvider";
 import type { PublicUser, ShiftTemplate, TagStyle } from "@/lib/types";
 
@@ -128,6 +128,54 @@ export function Empty({ icon, text }: { icon: IconName; text: string }) {
     <div className="flex flex-col items-center gap-2 rounded-3xl border border-dashed border-slate-200 bg-white/60 py-10 text-slate-400">
       <Icon name={icon} className="h-8 w-8" />
       <p className="text-sm">{text}</p>
+    </div>
+  );
+}
+
+/* ---------- dropdown (replaces the browser's native <select>) ---------- */
+export interface DropdownOption<T extends string> { value: T; label: string; hint?: string }
+
+export function Dropdown<T extends string>({ value, options, onChange, placeholder, disabled, className = "", ariaLabel, size = "md" }: {
+  value: T; options: DropdownOption<T>[]; onChange: (v: T) => void; placeholder?: string;
+  disabled?: boolean; className?: string; ariaLabel?: string; size?: "sm" | "md";
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => { if (!ref.current?.contains(e.target as Node)) setOpen(false); };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
+  }, [open]);
+
+  const cur = options.find((o) => o.value === value);
+  return (
+    <div ref={ref} className={`relative ${className}`}>
+      <button type="button" disabled={disabled} onClick={() => setOpen((o) => !o)} aria-haspopup="listbox" aria-expanded={open} aria-label={ariaLabel}
+        className={`flex w-full items-center justify-between gap-2 rounded-2xl bg-white text-left font-semibold text-slate-800 ring-1 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:opacity-50 ${size === "sm" ? "px-3.5 py-2.5 text-sm" : "px-4 py-3 text-sm"} ${open ? "ring-2 ring-blue-600" : "ring-slate-200"}`}>
+        <span className={`truncate ${cur ? "" : "font-normal text-slate-400"}`}>{cur?.label ?? placeholder}</span>
+        <Icon name="down" className={`h-4 w-4 shrink-0 text-slate-400 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <ul role="listbox" className="absolute left-0 z-50 mt-2 max-h-72 min-w-full overflow-auto rounded-2xl bg-white p-1.5 shadow-2xl shadow-slate-900/15 ring-1 ring-slate-200">
+          {options.map((o) => {
+            const sel = o.value === value;
+            return (
+              <li key={o.value} role="option" aria-selected={sel}>
+                <button type="button" onClick={() => { onChange(o.value); setOpen(false); }}
+                  className={`flex w-full items-center justify-between gap-3 whitespace-nowrap rounded-xl px-3 py-2.5 text-left text-sm transition ${sel ? "bg-blue-50 font-semibold text-blue-700" : "text-slate-700 hover:bg-slate-50"}`}>
+                  <span>{o.label}{o.hint && <span className="ml-2 text-xs font-normal text-slate-400">{o.hint}</span>}</span>
+                  {sel && <Icon name="check" className="h-4 w-4 shrink-0" />}
+                </button>
+              </li>
+            );
+          })}
+          {!options.length && <li className="px-3 py-2.5 text-sm text-slate-400">—</li>}
+        </ul>
+      )}
     </div>
   );
 }
