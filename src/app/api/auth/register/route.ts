@@ -1,4 +1,4 @@
-import { createSession, toPublic } from "@/lib/auth";
+import { createSession, sessionToken, toPublic } from "@/lib/auth";
 import { DEFAULT_TEMPLATES, hashPassword, personalCode, prisma } from "@/lib/db";
 import { body, fail, json } from "@/lib/api";
 
@@ -24,5 +24,5 @@ export async function POST(req: Request) {
     },
   });
   await createSession(user.id);
-  return json({ user: toPublic(user) });
+  return json({ user: toPublic(user), token: sessionToken(user.id) });
 }

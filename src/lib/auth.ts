@@ -1,6 +1,6 @@
 import "server-only";
 import { createHmac, scryptSync, timingSafeEqual } from "crypto";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { prisma } from "./db";
 import type { User } from "@/generated/prisma/client";
 
@@ -16,9 +16,12 @@ export function verifyPassword(pw: string, stored: string) {
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
+/** Signed session value. Web uses it as a cookie; the mobile app sends it as `Authorization: Bearer <token>`. */
+export const sessionToken = (userId: string) => `${userId}.${sign(userId)}`;
+
 export async function createSession(userId: string) {
   const store = await cookies();
-  store.set(COOKIE, `${userId}.${sign(userId)}`, {
+  store.set(COOKIE, sessionToken(userId), {
     httpOnly: true,
     sameSite: "lax",
     path: "/",
@@ -38,7 +41,8 @@ export const toPublic = (user: User) => {
 };
 
 export async function currentUser(): Promise<User | null> {
-  const raw = (await cookies()).get(COOKIE)?.value;
+  const auth = (await headers()).get("authorization");
+  const raw = auth?.startsWith("Bearer ") ? auth.slice(7) : (await cookies()).get(COOKIE)?.value;
   if (!raw) return null;
   const i = raw.lastIndexOf(".");
   const id = raw.slice(0, i);

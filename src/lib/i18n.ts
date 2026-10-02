@@ -245,6 +245,26 @@ const EN: Record<string, string> = {
   "สร้างบัญชีฟรี แล้วเริ่มลงเวรและชวนเพื่อนร่วมงานได้ในไม่กี่นาที": "Create a free account and start logging shifts and inviting colleagues in minutes",
   "เริ่มต้นใช้งานฟรี": "Get started for free",
   "ระบบจัดการตารางเวรสำหรับพนักงานปฏิบัติการ": "Shift management for operations staff",
+  // ---- download section ----
+  "ดาวน์โหลด": "Download",
+  "ดาวน์โหลดแอป Android": "Get the Android app",
+  "ติดตั้ง Swappy บนมือถือ Android": "Install Swappy on your Android phone",
+  "ใช้ Swappy ได้ทั้งบนเว็บและแอป พร้อมวิดเจ็ตบนหน้าจอหลัก ดาวน์โหลดไฟล์ APK แล้วติดตั้งได้ทันที": "Use Swappy on the web or as an app, with a home-screen widget. Download the APK and install it right away.",
+  "เวอร์ชันล่าสุด": "Latest version",
+  "ล่าสุด": "Latest",
+  "ดาวน์โหลด APK": "Download APK",
+  "ขนาด": "Size",
+  "วันที่ออก": "Released",
+  "ต้องใช้ Android {v} ขึ้นไป": "Requires Android {v} or later",
+  "ประวัติเวอร์ชัน": "Version history",
+  "สิ่งที่เปลี่ยนแปลง": "What's new",
+  "วิธีติดตั้ง": "How to install",
+  "ดาวน์โหลดไฟล์ APK ลงมือถือ": "Download the APK to your phone",
+  "เปิดไฟล์ แล้วอนุญาต “ติดตั้งแอปจากแหล่งที่ไม่รู้จัก” หากระบบถาม": "Open the file and allow “Install unknown apps” if prompted",
+  "กดติดตั้ง แล้วเปิดแอป Swappy": "Tap Install, then open Swappy",
+  "เพิ่มวิดเจ็ต: กดค้างที่หน้าจอหลัก → วิดเจ็ต → Swappy": "Add the widget: long-press the home screen → Widgets → Swappy",
+  "ยังไม่มีไฟล์ให้ดาวน์โหลด — เร็วๆ นี้": "No download available yet — coming soon",
+  "ตรวจสอบไฟล์ (SHA-256)": "Checksum (SHA-256)",
 };
 // keys with trailing spaces above are not used; keep lookups exact
 delete EN["แลกเวรสำเร็จ "];

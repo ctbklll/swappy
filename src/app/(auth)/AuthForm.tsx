@@ -85,11 +85,6 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
             <Link className="font-semibold text-blue-600" href={reg ? "/login" : "/register"}>{reg ? t("เข้าสู่ระบบ") : t("ลงทะเบียน")}</Link>
           </p>
         </form>
-        {!reg && (
-          <p className="text-center text-xs text-slate-400">
-            {t("ทดลองใช้")}: somchai@swappy.app / admin@swappy.app · {t("รหัสผ่าน")} <span className="font-mono">password123</span>
-          </p>
-        )}
       </div>
     </main>
   );

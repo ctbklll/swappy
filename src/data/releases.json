@@ -1,0 +1,28 @@
+[
+  {
+    "version": "1.0.0",
+    "date": "2026-10-02",
+    "file": "/downloads/swappy-1.0.0.apk",
+    "sizeBytes": 53471237,
+    "sha256": "80292145ed7f2eec7e1a0e78a1eb488fa8d5e50cdc8dd09f4b35a37c3ce7cf6e",
+    "minAndroid": "7.0",
+    "notes": {
+      "th": [
+        "เปิดตัวแอป Swappy สำหรับ Android",
+        "ปฏิทินเวร 4 มุมมอง: เดือน / 2 สัปดาห์ / สัปดาห์ / รายการ พร้อมจัดการกะงานเอง",
+        "เพิ่มเพื่อนด้วย QR Code หรือรหัสส่วนตัว และขอแลกเวร",
+        "แจ้งเตือนคำขอเพื่อนและคำขอแลกเวร",
+        "วิดเจ็ตหน้าจอหลักแสดงเวรวันนี้และเวรถัดไป",
+        "รองรับภาษาไทยและอังกฤษ"
+      ],
+      "en": [
+        "First release of Swappy for Android",
+        "Calendar with 4 views: month / 2 weeks / week / list, with your own shift templates",
+        "Add friends by QR code or personal code, and request shift swaps",
+        "Notifications for friend and swap requests",
+        "Home-screen widget showing today's shift and the next ones",
+        "Thai and English UI"
+      ]
+    }
+  }
+]
